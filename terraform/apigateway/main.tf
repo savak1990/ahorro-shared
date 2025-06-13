@@ -13,7 +13,7 @@ data "aws_caller_identity" "current" {}
 
 # Render OpenAPI spec from template with Lambda ARN
 locals {
-  openapi_spec = templatefile("${path.module}/schema/openapi.yml.tmpl", {
+  openapi_spec = templatefile(var.openapi_template_path, {
     wishlist_lambda_invoke_arn = var.wishlist_lambda_invoke_arn
   })
   fqdn = "${var.api_name}.${var.domain_name}"
@@ -47,10 +47,14 @@ resource "aws_api_gateway_stage" "this" {
 }
 
 resource "aws_api_gateway_domain_name" "this" {
-  domain_name              = var.domain_name
+  domain_name              = local.fqdn
   regional_certificate_arn = var.certificate_arn
 
   security_policy = "TLS_1_2"
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
 }
 
 resource "aws_api_gateway_base_path_mapping" "this" {
@@ -61,7 +65,7 @@ resource "aws_api_gateway_base_path_mapping" "this" {
 
 resource "aws_route53_record" "apigw" {
   zone_id = var.zone_id
-  name    = var.domain_name
+  name    = local.fqdn
   type    = "A"
   alias {
     name                   = aws_api_gateway_domain_name.this.regional_domain_name

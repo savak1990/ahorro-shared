@@ -33,3 +33,8 @@ variable "wishlist_lambda_invoke_arn" {
   description = "The Lambda function invoke ARN to inject into the OpenAPI spec."
   type        = string
 }
+
+variable "openapi_template_path" {
+  description = "Path to the OpenAPI template file."
+  type        = string
+}
