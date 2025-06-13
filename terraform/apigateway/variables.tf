@@ -24,12 +24,12 @@ variable "stage_name" {
   default     = "prod"
 }
 
-variable "wishlist_lambda_name" {
+variable "lambda_name" {
   description = "The name of the Lambda function to inject into the OpenAPI spec."
   type        = string
 }
 
-variable "wishlist_lambda_invoke_arn" {
+variable "lambda_invoke_arn" {
   description = "The Lambda function invoke ARN to inject into the OpenAPI spec."
   type        = string
 }

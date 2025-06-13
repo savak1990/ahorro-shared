@@ -14,7 +14,7 @@ data "aws_caller_identity" "current" {}
 # Render OpenAPI spec from template with Lambda ARN
 locals {
   openapi_spec = templatefile(var.openapi_template_path, {
-    wishlist_lambda_invoke_arn = var.wishlist_lambda_invoke_arn
+    lambda_invoke_arn = var.lambda_invoke_arn
   })
   fqdn = "${var.api_name}.${var.domain_name}"
 }
@@ -75,9 +75,9 @@ resource "aws_route53_record" "apigw" {
 }
 
 resource "aws_lambda_permission" "apigw_invoke" {
-  statement_id  = "${var.wishlist_lambda_name}-allow-invoke"
+  statement_id  = "${var.lambda_name}-allow-invoke"
   action        = "lambda:InvokeFunction"
-  function_name = var.wishlist_lambda_name
+  function_name = var.lambda_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "arn:aws:execute-api:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.this.id}/*/*/*"
 }
