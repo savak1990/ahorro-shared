@@ -18,12 +18,6 @@ variable "certificate_arn" {
   type        = string
 }
 
-variable "stage_name" {
-  description = "The name of the API Gateway stage."
-  type        = string
-  default     = "prod"
-}
-
 variable "lambda_name" {
   description = "The name of the Lambda function to inject into the OpenAPI spec."
   type        = string
