@@ -41,5 +41,10 @@ resource "aws_cognito_user_pool_client" "this" {
     "ALLOW_USER_SRP_AUTH",
     "ALLOW_CUSTOM_AUTH"
   ]
+
   prevent_user_existence_errors = "ENABLED"
+  read_attributes = [
+    "email",
+    "name"
+  ]
 }
