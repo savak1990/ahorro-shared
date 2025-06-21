@@ -38,3 +38,9 @@ variable "openapi_template_path" {
   description = "Path to the OpenAPI template file."
   type        = string
 }
+
+variable "openapi_template_replacements" {
+  description = "Map of replacements for the OpenAPI templatefile function. Keys should match template variables."
+  type        = map(string)
+  default     = {}
+}

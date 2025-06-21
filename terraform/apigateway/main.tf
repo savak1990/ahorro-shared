@@ -7,16 +7,10 @@ terraform {
   }
 }
 
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
 # Render OpenAPI spec from template with Lambda ARN
 locals {
-  openapi_spec = templatefile(var.openapi_template_path, {
-    lambda_invoke_arn = var.lambda_invoke_arn
-  })
-  fqdn = "${var.api_name}.${var.domain_name}"
+  openapi_spec = templatefile(var.openapi_template_path, var.openapi_template_replacements)
+  fqdn         = "${var.api_name}.${var.domain_name}"
 }
 
 # Create the API Gateway HTTP API with inline OpenAPI spec
