@@ -12,3 +12,9 @@ output "user_pool_arn" {
   description = "The ARN of the Cognito User Pool."
   value       = aws_cognito_user_pool.this.arn
 }
+
+output "user_pool_fqdn" {
+  description = "The fully qualified domain name for the Cognito User Pool."
+  value       = aws_cognito_user_pool_domain.custom.domain
+  sensitive   = true
+}
