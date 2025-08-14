@@ -2,7 +2,7 @@ resource "aws_cognito_user_pool" "this" {
   name = var.user_pool_name
 
   username_attributes      = ["email"]
-  auto_verified_attributes = [] # No auto verification, enable "email" for prod
+  auto_verified_attributes = ["email"] # Enable email auto verification
   mfa_configuration        = "OFF"
 
   // Uncomment the following line to enable email verification
