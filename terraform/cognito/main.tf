@@ -2,10 +2,9 @@ resource "aws_cognito_user_pool" "this" {
   name = var.user_pool_name
 
   username_attributes      = ["email"]
-  auto_verified_attributes = ["email"] # Enable email auto verification
+  auto_verified_attributes = ["email"]
   mfa_configuration        = "OFF"
 
-  // Uncomment the following line to enable email verification
   account_recovery_setting {
     recovery_mechanism {
       name     = "admin_only"
